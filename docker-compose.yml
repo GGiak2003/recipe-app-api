@@ -1,0 +1,18 @@
+# This is the version of the docker composed syntax used
+# version: "3.9"
+
+# This is the main block.
+services:
+  app:
+    build: 
+      context: .
+      args:
+        - DEV=true 
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+
+
