@@ -10,6 +10,8 @@ from core import models
 
 class UserAdmin(BaseUserAdmin):
     """Define admin pages for users."""
+
+
     ordering = ['id']
     list_display = ['email', 'name']
     fieldsets = (
@@ -26,6 +28,7 @@ class UserAdmin(BaseUserAdmin):
             }),
         (_('Important dates'), {'fields': ('last_login',)}),
     )
+
     readonly_fields = ['last_login']
     add_fieldsets = (
         (None, {
@@ -42,5 +45,3 @@ class UserAdmin(BaseUserAdmin):
         }),
     )
 admin.site.register(models.User, UserAdmin)
-
-
