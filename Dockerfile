@@ -1,7 +1,7 @@
 FROM python:3.9-alpine3.13
-
 LABEL manteiner="me@giacomobellomo.it"
-ENV PYTHONUNBUFFERED 1 
+
+ENV PYTHONUNBUFFERED 1
 
 COPY ./requirements.txt /tmp/requirements.txt
 COPY ./requirements.dev.txt /tmp/requirements.dev.txt
@@ -10,7 +10,7 @@ WORKDIR /app
 EXPOSE 8000
 
 ARG DEV=false
-RUN python -m venv /py && \ 
+RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
     apk add --update --no-cache postgresql-client && \
     apk add --update --no-cache --virtual .tmp-build-deps \
@@ -24,10 +24,8 @@ RUN python -m venv /py && \
     adduser \
         --disabled-password \
         --no-create-home \
-        django-user 
- 
+        django-user
+
 ENV PATH="/py/bin:$PATH"
 
 USER django-user
-    
-

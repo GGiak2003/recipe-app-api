@@ -50,7 +50,6 @@ class PublicUserApiTests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 
-
     def test_password_too_short_error(self):
         """Test an error is returned if password less than 5 chars."""
         payload = {
@@ -65,7 +64,6 @@ class PublicUserApiTests(TestCase):
             email=payload['email']
         ).exists()
         self.assertFalse(user_exists)
-
 
     def test_create_token_for_user(self):
         """Test generated token credentials."""
@@ -103,8 +101,6 @@ class PublicUserApiTests(TestCase):
         self.assertNotIn('token', res.data)
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 
-
-
     def test_create_token_blank_password(self):
         """Test posting a blank password return an error."""
         payload = {'email': 'test@example.com', 'password': ''}
@@ -112,4 +108,3 @@ class PublicUserApiTests(TestCase):
 
         self.assertNotIn('token', res.data)
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
-
