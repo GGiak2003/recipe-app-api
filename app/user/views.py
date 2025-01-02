@@ -1,5 +1,5 @@
 """
-Views for the user API
+Views for the user API.
 """
 from rest_framework import generics, authentication, permissions
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -29,5 +29,5 @@ class ManageUserView(generics.RetrieveUpdateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
-        """retrives and return the authenticated user."""
+        """Retrieves and return the authenticated user."""
         return self.request.user

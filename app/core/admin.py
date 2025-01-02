@@ -1,5 +1,5 @@
 """
-Django admin administration.
+Django admin customization.
 """
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
@@ -9,7 +9,7 @@ from core import models
 
 
 class UserAdmin(BaseUserAdmin):
-    """Define admin pages for users."""
+    """Define the admin pages for users."""
 
     ordering = ['id']
     list_display = ['email', 'name']
@@ -24,7 +24,8 @@ class UserAdmin(BaseUserAdmin):
                     'is_staff',
                     'is_superuser',
                 ),
-            }),
+            }
+        ),
         (_('Important dates'), {'fields': ('last_login',)}),
     )
 
@@ -40,7 +41,7 @@ class UserAdmin(BaseUserAdmin):
                 'is_active',
                 'is_staff',
                 'is_superuser',
-            )
+            ),
         }),
     )
 
