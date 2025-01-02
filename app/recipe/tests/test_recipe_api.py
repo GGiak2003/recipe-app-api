@@ -14,7 +14,9 @@ from core.models import Recipe
 
 from recipe.serializers import RecipeSerializer
 
-RECIPES_URL = reverse('recipe:recipe_list')
+
+RECIPES_URL = reverse('recipe:recipe-list')
+
 
 def create_recipe(user, **params):
     """Create and return a sample recipe."""
@@ -27,11 +29,11 @@ def create_recipe(user, **params):
     }
     defaults.update(params)
 
-    recipe = recipe.objects.crete(user=user, **defaults)
+    recipe = Recipe.objects.create(user=user, **defaults)
     return recipe
 
 
-class PublicRecipeAPITests(TestCase):
+class PublicRecipeApiTests(TestCase):
     """Test unauthenticated API requests."""
 
     def setUp(self):
@@ -44,7 +46,7 @@ class PublicRecipeAPITests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
-class PrivateRecipeAPITest(TestCase):
+class PrivateRecipeApiTests(TestCase):
     """Test authenticated API request."""
 
     def setUp(self):
@@ -55,8 +57,8 @@ class PrivateRecipeAPITest(TestCase):
         )
         self.client.force_authenticate(self.user)
 
-    def retrive_recipe(self):
-        """Test retrive a list of recipe."""
+    def retrieve_recipe(self):
+        """Test retrieve a list of recipes."""
         create_recipe(user=self.user)
         create_recipe(user=self.user)
 
@@ -67,7 +69,7 @@ class PrivateRecipeAPITest(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, serializer.data)
 
-    def test_recipe_limited_to_user(self):
+    def test_recipe_list_limited_to_user(self):
         """Test list of recipes is limited to authenticated user."""
         other_user = get_user_model().objects.create_user(
             'other@example.com',
