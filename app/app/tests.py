@@ -5,6 +5,7 @@ from django.test import SimpleTestCase
 
 from app import calc
 
+
 class CalcTests(SimpleTestCase):
     """Test the calc module."""
 
@@ -15,7 +16,7 @@ class CalcTests(SimpleTestCase):
         self.assertEqual(res, 11)
 
     def test_subtract_numbers(self):
-        """Test subracting numbers."""
+        """Test subtracting numbers."""
         res = calc.subtract(10, 15)
 
         self.assertEqual(res, 5)
