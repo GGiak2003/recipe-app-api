@@ -13,33 +13,34 @@ from core.models import Tag
 from recipe.serializers import TagSerializer
 
 
-TAGS_URL = reverse('recipe_tag-list')
+TAGS_URL = reverse('recipe:tag-list')
 
 
 def detail_url(tag_id):
     """Create and return a tag detail url."""
     return reverse('recipe:tag-detail', args=[tag_id])
 
-def create_user(email='user@example', password='testpass123'):
+
+def create_user(email='user@example.com', password='testpass123'):
     """Create and return a user."""
     return get_user_model().objects.create_user(email=email, password=password)
 
 
 class PublicTagsApiTests(TestCase):
-    """Test auth is required for retrieving tags."""
+    """Test unauthenticated API requests."""
 
     def setUp(self):
-        self.client = APIClient
+        self.client = APIClient()
 
-        def test_auth_required(self):
-            """Test auth is required for retrieving tags."""
-            res = self.client.get(TAGS_URL)
+    def test_auth_required(self):
+        """Test auth is required for retrieving tags."""
+        res = self.client.get(TAGS_URL)
 
-            self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
 class PrivateTagsApiTests(TestCase):
-    """test authenticated API requests."""
+    """Test authenticated API requests."""
 
     def setUp(self):
         self.user = create_user()
