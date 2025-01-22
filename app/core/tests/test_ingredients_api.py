@@ -17,7 +17,7 @@ INGREDIENTS_URL = reverse('recipe:ingredient-list')
 
 
 def detail_url(ingredient_id):
-    """Create and return an Ingredient detail URL."""
+    """Create and return an ingredient detail URL."""
     return reverse('recipe:ingredient-detail', args=[ingredient_id])
 
 
@@ -74,7 +74,7 @@ class PrivateIngredientsApiTests(TestCase):
 
     def test_update_ingredient(self):
         """Test updating an ingredient."""
-        ingredient = ingredient = Ingredient.objects.create(user=self.user, name='Cilantro')
+        ingredient = Ingredient.objects.create(user=self.user, name='Cilantro')
 
         payload = {'name': 'Coriander'}
         url = detail_url(ingredient.id)
@@ -92,6 +92,6 @@ class PrivateIngredientsApiTests(TestCase):
         res = self.client.delete(url)
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
-        ingedients = Ingredient.objects.filter(user=self.user)
-        self.assertFalse(ingredient.exists())
+        ingredients = Ingredient.objects.filter(user=self.user)
+        self.assertFalse(ingredients.exists())
 
